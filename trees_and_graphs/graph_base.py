@@ -21,11 +21,30 @@ class Graph:
             graph.add_edge(from_node, to_node)
         return graph
 
+    def non_directed_from_edges(size: int, edges: List[Tuple[int, int]]):
+        graph = Graph(size)
+        for from_node, to_node in edges:
+            graph.add_edge(from_node, to_node)
+            graph.add_edge(to_node, from_node)
+        return graph
+
     def add_edge(self, from_node: int, to_node: int):
         self.adjacency_list[from_node].add(to_node)
 
-    def children(self, node:int) -> List[int]:
+    def children(self, node: int) -> List[int]:
+        """Return the nodes that can be reached directly from node"""
         return self.adjacency_list[node]
+
+    def __str__(self):
+        """String repr. to visualize with
+        https://dreampuf.github.io/GraphvizOnline/"""
+        res = 'digraph A { '
+        for node, children in enumerate(self.adjacency_list):
+            res += f'{node};'
+            for child in children:
+                res += f'{node} -> {child};'
+        res += '}'
+        return res
 
 
 def depth_first_list(graph: Graph, start_node: int, visit):
