@@ -1,6 +1,6 @@
 """Find if a string is a permutation of another string"""
 
-from collections import Counter
+from collections import Counter, defaultdict
 
 
 def is_permutation(string1, string2):
@@ -9,13 +9,10 @@ def is_permutation(string1, string2):
 
 
 def is_permutation_alt(string1, string2):
-    letters_map = {}
+    letters_map = defaultdict(int)
 
     for char in string1:
-        if char in letters_map:
-            letters_map[char] += 1
-        else:
-            letters_map[char] = 1
+        letters_map[char] += 1
 
     for char in string2:
         if char not in letters_map or letters_map[char] == 0:
