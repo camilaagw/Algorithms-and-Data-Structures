@@ -1,7 +1,8 @@
 """Minimal tree: Given a sorted (increasing order) array with unique integer
- elements, write an algorithm to create a binary seach tree with minimal height"""
+ elements, write an algorithm to create a binary search tree with minimal height.
+ Bonus problem: Add an element to the tree"""
 
-from typing import List, Optional
+from typing import List
 
 
 class Node:
