@@ -1,4 +1,5 @@
-"""Route between nodes (Book 4.1)"""
+"""Route between nodes. Given a directed graph and two nodes (S and E), design an
+algorithm to find whether there is a route from S to E"""
 from collections import deque
 from graph_base import Graph
 

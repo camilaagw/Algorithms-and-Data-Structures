@@ -62,17 +62,17 @@ def depth_first_list(graph: Graph, start_node: int, visit):
 
 def breath_first_list(graph: Graph, start_node: int, visit):
     queue = deque()
-    enqueued = set()
+    visited = set()
 
     queue.append(start_node)
-    enqueued.add(start_node)
+    visited.add(start_node)
     while queue:
         current_node = queue.popleft()  # Replace to pop ("right") to convert it do DFS ;)
         visit(current_node)
         for child in graph.children(current_node):
-            if child not in enqueued:
+            if child not in visited:
                 queue.append(child)
-                enqueued.add(child)
+                visited.add(child)
 
 
 def test_list_graph(graph, expected, func):
