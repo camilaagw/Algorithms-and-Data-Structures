@@ -7,6 +7,14 @@ class Node:
         self.data = value
         self.next = None
 
+    def __str__(self):
+        current_node = self
+        vals = []
+        while current_node:
+            vals.append(current_node.data)
+            current_node = current_node.next
+        return ' -> '.join(map(str, vals))
+
 
 class LinkedList:
 
@@ -48,7 +56,7 @@ class LinkedList:
 
         self.head = temp_head
 
-        return self
+        return self  # Note: This method returns the list for testing (Not ideal)
 
     def insert_before_head(self, value):
         temp = Node(value)
@@ -63,6 +71,59 @@ class LinkedList:
         while current_node.next:
             current_node = current_node.next
         current_node.next = Node(value)
+
+    def remove_duplicates(self):
+        """Implementation using a set"""
+        current_node = self.head
+        prev = None
+        visited = set()
+        while current_node:
+            if current_node.data in visited:
+                prev.next = current_node.next
+            else:
+                visited.add(current_node.data)
+                prev = current_node
+            current_node = current_node.next
+        return self  # Note: This method returns the list for testing (Not ideal)
+
+    def remove_duplicates2(self):
+        """Implementation without a buffer"""
+        node = self.head
+        while node:
+            current_node = node.next
+            prev = node
+            while current_node:
+                if current_node.data == node.data:
+                    prev.next = current_node.next
+                else:
+                    prev = current_node
+                current_node = current_node.next
+            node = node.next
+        return self  # Note: This method returns the list for testing (Not ideal)
+
+    def return_kth_to_last(self, k):
+        first_pointer = self.head
+        last_pointer = self.head
+
+        # Move last pointer, k positions
+        count = 0
+        while count < k and last_pointer:
+            last_pointer = last_pointer.next
+            count += 1
+
+        # Move first pointer, until last pointer is null
+        while last_pointer:
+            first_pointer = first_pointer.next
+            last_pointer = last_pointer.next
+
+        return first_pointer
+
+    def delete_middle_node(self, node):
+        """`node` is any node but the first and the last node"""
+        current_node = node
+        while current_node.next:
+            current_node.data = current_node.next.data
+            current_node = current_node.next
 
 
 def assert_eq(actual, expected):
@@ -100,3 +161,27 @@ if __name__ == "__main__":
     assert_eq(LinkedList().reverse().head, None)
     assert_eq(str(LinkedList(42).reverse()), '42')
     assert_eq(str(LinkedList(42, 24).reverse()), display_values('24', '42'))
+    my_list.reverse()
+
+    # Test remove duplicates (with an external buffer)
+    my_list.insert_after_tail(42)
+    my_list.insert_after_tail(24)
+    my_list.insert_after_tail(98)
+    my_list.insert_after_tail(789)
+    assert_eq(str(my_list.remove_duplicates()), display_values(*values, 789))
+
+    # Test remove duplicates (without an external buffer)
+    my_list.insert_after_tail(42)
+    my_list.insert_after_tail(24)
+    my_list.insert_after_tail(98)
+    my_list.insert_after_tail(789)
+    assert_eq(str(my_list.remove_duplicates2()), display_values(*values, 789))
+
+    # Test - kth to last
+    assert_eq(str(my_list.return_kth_to_last(20)), display_values(*values, 789))
+    assert_eq(str(my_list.return_kth_to_last(2)), display_values(98, 789))
+    assert_eq(str(my_list.return_kth_to_last(3)), display_values(1, 98, 789))
+    assert_eq(LinkedList().return_kth_to_last(10), None)
+
+    # Delete middle node
+
