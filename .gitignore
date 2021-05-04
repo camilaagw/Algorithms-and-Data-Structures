@@ -141,3 +141,5 @@ cython_debug/
 *.DS_store
 ignore
 .idea
+
+mock-interviews

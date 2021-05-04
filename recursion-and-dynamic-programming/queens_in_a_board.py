@@ -1,3 +1,7 @@
+"""Write a function to determine all ways of arranging eight queens on a N by N
+board so that none of them share the same row, column or diagonal
+"""
+
 class Diagonals:
     def __init__(self, forbidden_sum=[], forbidden_diff=[]):
         self.forbidden_sum = forbidden_sum
@@ -23,7 +27,7 @@ def get_num_combinations(rows, col, diagonals):
             result += get_num_combinations(
                 rows - {row},
                 col - 1,
-                diagonals.without(row, col)
+                diagonals.(row, col)
             )
     return result
 

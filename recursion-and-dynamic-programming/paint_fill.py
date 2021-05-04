@@ -6,7 +6,7 @@ from typing import List, Tuple
 from collections import deque
 
 
-def paint_fill(point: Tuple[int, int], matrix: List[List[int]], color: int): #-> List[List[int]]:
+def paint_fill(point: Tuple[int, int], matrix: List[List[int]], new_color: int):
     """DFS implementation"""
     visited = set()
     rows, cols = len(matrix), len(matrix[0])
@@ -15,29 +15,29 @@ def paint_fill(point: Tuple[int, int], matrix: List[List[int]], color: int): #->
         if idx not in visited:
             visited.add(idx)
             i, j = idx
-            temp_color = matrix[i][j]
-            matrix[i][j] = color
+            temp_color, matrix[i][j] = matrix[i][j], new_color
             for next_idx in get_neighbors(idx, rows, cols):
-                if next_idx not in visited and temp_color == matrix[next_idx[0]][next_idx[1]]:
+                nxt_i, nxt_j = next_idx
+                if next_idx not in visited and temp_color == matrix[nxt_i][nxt_j]:
                     traverse(next_idx)
 
     traverse(point)
 
 
-def paint_fill_v2(point: Tuple[int, int], matrix: List[List[int]], color: int):
+def paint_fill_v2(point: Tuple[int, int], matrix: List[List[int]], new_color: int):
     """BFS implementation"""
-    visited = set()
     rows, cols = len(matrix), len(matrix[0])
+    visited = set()
     queue = deque()
     queue.append(point)
     visited.add(point)
     while queue:
-        idx = queue.popleft()
-        temp_color = matrix[idx[0]][idx[1]]
-        matrix[idx[0]][idx[1]] = color
-        for next_idx in get_neighbors(idx, rows, cols):
-            if next_idx not in visited and temp_color == matrix[next_idx[0]][next_idx[1]]:
-                matrix[next_idx[0]][next_idx[1]] = color
+        i, j = queue.popleft()
+        temp_color, matrix[i][j] = matrix[i][j], new_color
+        for next_idx in get_neighbors((i, j), rows, cols):
+            nxt_i, nxt_j = next_idx
+            if next_idx not in visited and temp_color == matrix[nxt_i][nxt_j]:
+                matrix[nxt_i][nxt_j] = new_color # is this needed?
                 visited.add(next_idx)
                 queue.append(next_idx)
 

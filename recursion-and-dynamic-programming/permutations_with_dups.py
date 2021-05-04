@@ -6,6 +6,7 @@ from collections import Counter
 def get_permutations(string: str) -> List[str]:
     """Recursive version"""
     counter_ = Counter(string)
+
     def helper(counter):
         if sum(counter.values()) == 0:
             return ['']
