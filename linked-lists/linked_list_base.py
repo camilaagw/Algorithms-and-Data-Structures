@@ -56,7 +56,7 @@ class LinkedList:
 
         self.head = temp_head
 
-        return self  # Note: This method returns the list for testing (Not ideal)
+        return self  # Note: This method returns the list for testing purposes
 
     def insert_before_head(self, value):
         temp = Node(value)
@@ -84,7 +84,7 @@ class LinkedList:
                 visited.add(current_node.data)
                 prev = current_node
             current_node = current_node.next
-        return self  # Note: This method returns the list for testing (Not ideal)
+        return self  # Note: This method returns the list for testing purposes
 
     def remove_duplicates2(self):
         """Implementation without a buffer"""
@@ -99,7 +99,7 @@ class LinkedList:
                     prev = current_node
                 current_node = current_node.next
             node = node.next
-        return self  # Note: This method returns the list for testing (Not ideal)
+        return self  # Note: This method returns the list for testing purposes
 
     def return_kth_to_last(self, k):
         first_pointer = self.head
@@ -184,4 +184,5 @@ if __name__ == "__main__":
     assert_eq(LinkedList().return_kth_to_last(10), None)
 
     # Delete middle node
+    # TODO
 
