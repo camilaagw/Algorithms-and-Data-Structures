@@ -1,4 +1,4 @@
-# Algorithms and Data Structures :sunglasses: :computer:
+# Algorithms and Data Structures :robot:
 
 ![](trees_and_graphs/img/binary_tree.png)
 
