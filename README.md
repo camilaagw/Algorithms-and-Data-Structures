@@ -1,6 +1,6 @@
 # Algorithms and Data Structures :robot:
 
-![](img/binary_tree.png)
+![](.images/binary_tree.png)
 
 Solutions to various (fun) algorithms and data structures challenges. All sorts of complexity levels,
 from very easy to big-tech-interview level.
