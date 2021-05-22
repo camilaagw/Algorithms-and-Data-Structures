@@ -1,7 +1,45 @@
-""""""
+"""You are given a list of projects and a list of dependencies
+(which is a list of pairs of projects, where the 1st project is
+dependent on the 2nd project. All of a project's dependencies
+must be built before the project is. Find a build order that will allow
+the projects to be built.
+If there is no valid build order, return None
+"""
 
 from typing import List, Tuple
 from collections import defaultdict
+
+
+class Graph:
+
+    def __init__(self):
+        self.removed_nodes = set()
+        self.edges = defaultdict(set)
+        self.rev_edges = defaultdict(set)
+
+    def is_empty(self):
+        return len(self.removed_nodes) == len(self.edges.keys())
+
+    def add_edge(self, from_, to_):
+        self.edges[from_].add(to_)
+        self.rev_edges[to_].add(from_)
+        self.edges[to_] = self.edges[to_]
+
+    def remove_node(self, node):
+        self.removed_nodes.add(node)
+
+    def following_nodes(self, node):
+        if node not in self.removed_nodes:
+            for to_ in self.edges[node]:
+                if to_ not in self.removed_nodes:
+                    yield to_
+
+    def has_following_nodes(self, node):
+        if node not in self.removed_nodes:
+            for to_ in self.edges[node]:
+                if to_ not in self.removed_nodes:
+                    return True
+        return False
 
 
 def get_build_order_v1(edges: List[Tuple[int, int]]):
@@ -37,38 +75,6 @@ def get_build_order_v1(edges: List[Tuple[int, int]]):
     build_order.extend(possible_origins)
 
     return build_order
-
-
-class Graph:
-
-    def __init__(self):
-        self.removed_nodes = set()
-        self.edges = defaultdict(set)
-        self.rev_edges = defaultdict(set)
-
-    def is_empty(self):
-        return len(self.removed_nodes) == len(self.edges.keys())
-
-    def add_edge(self, from_, to_):
-        self.edges[from_].add(to_)
-        self.rev_edges[to_].add(from_)
-        self.edges[to_] = self.edges[to_]
-
-    def remove_node(self, node):
-        self.removed_nodes.add(node)
-
-    def following_nodes(self, node):
-        if node not in self.removed_nodes:
-            for to_ in self.edges[node]:
-                if to_ not in self.removed_nodes:
-                    yield to_
-
-    def has_following_nodes(self, node):
-        if node not in self.removed_nodes:
-            for to_ in self.edges[node]:
-                if to_ not in self.removed_nodes:
-                    return True
-        return False
 
 
 def get_build_order(edges: List[Tuple[int, int]]):
