@@ -1,23 +1,23 @@
 """Route between nodes. Given a directed graph and two nodes (S and E), design an
 algorithm to find whether there is a route from S to E"""
+
 from collections import deque
 from graph_base import Graph
 
 
 def route_exists(graph: Graph, from_node, to_node) -> bool:
-    queue = deque()
-    enqueued = set()
+    """BFS"""
+    queue = deque([from_node])
+    visited = {from_node}
 
-    queue.append(from_node)
-    enqueued.add(from_node)
     while queue:
         current_node = queue.popleft()
         if current_node == to_node:
             return True
-        for child in graph.children(current_node):
-            if child not in enqueued:
+        for child in graph.get_children(current_node):
+            if child not in visited:
                 queue.append(child)
-                enqueued.add(child)
+                visited.add(child)
 
     return False
 

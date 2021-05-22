@@ -6,13 +6,13 @@ from typing import List
 
 def get_connected_nodes(graph: Graph) -> List[List[int]]:
     subgraphs_list = []
-    nodes_left = set(range(graph.size))
-    while nodes_left:
+    nodes = set(range(graph.size))
+    while nodes:
         nodes_list = []
-        start_node = nodes_left.pop()
+        start_node = nodes.pop()
         breath_first_list(graph, start_node, lambda x: nodes_list.append(x))
-        nodes_left.difference_update(nodes_list)
         subgraphs_list.append(nodes_list)
+        nodes.difference_update(nodes_list)
     return subgraphs_list
 
 
