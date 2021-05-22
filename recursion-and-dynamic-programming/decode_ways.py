@@ -49,7 +49,7 @@ def get_num_decoding_ways_alt(my_string: str) -> int:
     """Implementation using dynamic programming"""
     num_ways = {}
 
-    def helper(string: str, index: int) -> int:
+    def decode_ways(string: str, index: int) -> int:
 
         n = len(string)
         if index == n:
@@ -60,14 +60,14 @@ def get_num_decoding_ways_alt(my_string: str) -> int:
         if index in num_ways:
             return num_ways[index]
 
-        result = helper(string, index + 1)
+        result = decode_ways(string, index + 1)
         if n - index >= 2 and int(string[index:index + 2]) <= 26:
-            result += helper(string, index + 2)
+            result += decode_ways(string, index + 2)
         num_ways[index] = result
 
         return result
 
-    return helper(my_string, index=0)
+    return decode_ways(my_string, index=0)
 
 
 if __name__ == "__main__":
