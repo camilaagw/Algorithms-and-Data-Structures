@@ -6,25 +6,20 @@ from typing import Tuple
 
 def is_balanced(tree: Tree) -> bool:
     def helper(node: Node) -> Tuple[bool, int]:
+        """Returns a tuple with:
+        - A boolean indicating if the tree formed the node is balanced
+        - An integer indicating the depth of the tree (-1 if it is unbalanced)
+        """
         if not node:
             return True, 0
         left_balanced, left_depth = helper(node.left)
         if not left_balanced:
             return False, -1
         right_balanced, right_depth = helper(node.right)
-        depth = max(left_depth, right_depth) + 1
         balanced = left_balanced and right_balanced and abs(left_depth - right_depth) <= 1
-        return balanced, depth
+        return balanced, max(left_depth, right_depth) + 1
     balanced_flag, _ = helper(tree.root)
     return balanced_flag
-
-
-def _depth(node: Node) -> int:
-    if not node:
-        return 0
-    left_depth = _depth(node.left)
-    right_depth = _depth(node.right)
-    return max(left_depth, right_depth) + 1
 
 
 if __name__ == "__main__":

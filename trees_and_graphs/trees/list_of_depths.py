@@ -5,7 +5,8 @@ from typing import List
 from tree_base import Tree, Node
 
 
-def convert_tree_to_list(tree: Tree) -> List[List[Node]]:
+def tree_to_list_by_depth(tree: Tree) -> List[List[Node]]:
+    """Iterative version"""
     main_list = []
     current_list = [tree.root] if tree.root else None
     while current_list:
@@ -21,7 +22,8 @@ def convert_tree_to_list(tree: Tree) -> List[List[Node]]:
     return main_list
 
 
-def convert_tree_to_list_v2(tree: Tree) -> List[List[Node]]:
+def tree_to_list_by_depth_v2(tree: Tree) -> List[List[Node]]:
+    """Recursive version"""
     main_list = []
 
     def traverse_node(node: Node, depth: int):
@@ -38,7 +40,7 @@ def convert_tree_to_list_v2(tree: Tree) -> List[List[Node]]:
 
 if __name__ == "__main__":
     my_tree = Tree.from_sorted_list(list(range(20)))
-    for func in [convert_tree_to_list, convert_tree_to_list_v2]:
+    for func in [tree_to_list_by_depth, tree_to_list_by_depth_v2]:
         result = [
             list(map(lambda x: x.value, _list))
             for _list in func(my_tree)
